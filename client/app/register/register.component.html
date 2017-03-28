@@ -1,0 +1,49 @@
+<div class="container">
+    <h1 class="text-center">{{photo.titulo}}</h1>
+    <!-- [formGroup]="" necessário para que seja feito o binding do form para o component.ts-->
+    <form [formGroup]="registerForm" class="row" (submit)="save($event)">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Título</label>
+                <!-- formControlName="" necessário para que seja feito o binding do elemento do form para o form no component.ts-->
+                <input  formControlName="titulo"
+                        name="titulo" [(ngModel)]="photo.titulo" 
+                        class="form-control"  autocomplete="off">
+                <!-- *ngIf="" similar ao rendered="", avalia a condição passada, se true exibe, se false não exibe-->
+                <div *ngIf="registerForm.controls.titulo.invalid">
+                    <span *ngIf="registerForm.controls.titulo.errors.required" class="form-control alert-danger">
+                        O título é obrigatório
+                    </span>   
+                    <span *ngIf="registerForm.controls.titulo.errors.minlength" class="form-control alert-danger">
+                        O título deve ter no mínimo 4 caracteres
+                    </span>   
+                </div>
+            </div>
+            <div class="form-group">
+                <label>URL</label>
+                <input  formControlName="url"
+                        name="url" [(ngModel)]="photo.url" 
+                        class="form-control"  autocomplete="off">
+                <span *ngIf="registerForm.controls.url.invalid" class="form-control alert-danger">
+                    É obrigatório informar a url
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea   formControlName="descricao"
+                            name="descricao" [(ngModel)]="photo.descricao" 
+                            class="form-control"  autocomplete="off">
+                </textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+                Salvar
+            </button>
+             <a [routerLink]="['']" class="btn btn-primary">Voltar</a>
+            <hr>
+        </div>
+        <div class="col-md-6">
+            <photo url={{photo.url}} title="{{photo.titulo}}"></photo>
+        </div>
+    </form>
+</div>

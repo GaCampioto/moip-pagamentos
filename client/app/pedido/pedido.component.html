@@ -1,0 +1,35 @@
+<div class="container">
+    <h1 class="text-center">Pedido</h1>
+    <!-- [formGroup]="" necessário para que seja feito o binding do form para o component.ts-->
+    <form class="row" (submit)="criarPedido($event)">
+        <div class="col-md-12">
+            <h2>Informações do pedido</h2>    
+            <label>Identificador do pedido:</label>
+            <input  name="ownId" [(ngModel)]="pedido.ownId" 
+                    autocomplete="off">
+            <table class="table table-striped">
+                <tr>
+                    <td>Produto</td>
+                    <td>Detalhes</td>
+                    <td>Preço</td>
+                    <td>Quantidade</td>
+                </tr>
+                <tr *ngFor="let item of pedido.items">
+                        <td>{{item.product}}</td>
+                        <td>{{item.detail}}</td>
+                        <td>R$ {{item.price}}</td>
+                        <td>
+                            <input  type="number"
+                                    name="quantity" [(ngModel)]="item.quantity" 
+                                    class=""  autocomplete="off">
+                        </td>
+                </tr>
+            </table>
+            <button type="submit" class="btn btn-primary">
+                Criar pedido
+            </button>
+            <a [routerLink]="['']" class="btn btn-primary">Voltar</a>
+            <hr>
+        </div>
+    </form>
+</div>
