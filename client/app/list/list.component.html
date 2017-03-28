@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h1 class="text-center">Alurapic</h1>
+    <h1 class="text-center">Pedidos</h1>
 </div>
 <div class="container">
     <div class="row">
@@ -9,24 +9,35 @@
                     <span class="input-group-btn">
                         <!-- routerLink no lugar de href para que a aplicação apenas troque
                             o contexto ao invés de recarregar a página-->
-                        <a [routerLink]="['cadastro']" class="btn btn-primary">
-                            Nova foto
+                        <a [routerLink]="['novoPedido']" class="btn btn-primary">
+                            Novo Pedido
                         </a>
                     </span>
-                    <!-- (event binding) -->
-                    <input class="form-control" #searchText (keyup)="0" placeholder="filtrar pelo título da foto">
                 </div> 
             </form>
         </div> <!-- fim col-md-12 -->
     </div> <!-- fim row -->
     <br>
 
-    <div class="row">
-        <!-- [UNIDIRECIONAL] - DOS DADOS PARA A VIEW -->
-        <panel *ngFor="let photo of photos | filterByTitle:searchText.value" [title]="photo.titulo | uppercase" class="col-md-2">
-            <photo  [url]="photo.url" [titulo]="photo.titulo"></photo>
-            <!-- {{BIDIRECIONAL}} DOS DADOS PARA A VIEW E VICE VERSA -->
-            <!-- <photo *ngFor="let foto of fotos" url="{{foto.url}}" title="{{foto.titulo}}"></photo> -->
-        </panel>
+    <div class="row col-md-12">
+        <table class="table table-striped">
+                <tr>
+                    <td>Identificador do Pedido</td>
+                    <td>Nome do cliente</td>
+                    <td>Quantidade de itens</td>
+                    <td>Valor total</td>
+                </tr>
+                <tr *ngFor="let pedido of pedidos">
+                        <td>{{pedido.ownId}}</td>
+                        <td>{{pedido.customer.fullname}}</td>
+                        <td>R$ {{defineValorTotal(pedido)}}</td>
+                        <td>{{pedido.items.length}}</td>
+                        <td>
+                            <a [routerLink]="['novoPagamento']" class="btn btn-primary">
+                                Ir para o pagamento
+                            </a>
+                        </td>
+                </tr>
+            </table>
     </div>
 </div>

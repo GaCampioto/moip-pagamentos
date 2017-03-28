@@ -6,8 +6,8 @@ import { PedidoComponent } from './pedido/pedido.component';
 
 //Configuração das rotas
 const appRoutes: Routes = [
-    { path: '', component: PedidoComponent},
-    { path: 'lista', component: ListComponent },
+    { path: '', component: ListComponent },
+    { path: 'novoPedido', component: PedidoComponent},
     { path:'cadastro', component: RegisterComponent },
     { path:'**', component: ListComponent}
 ];

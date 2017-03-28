@@ -13,9 +13,11 @@ export class PedidoComponent{
     pedido: Pedido;
     items: Product[] = [];
     ownId: string = '';
-    pedidoService: PedidoService = new PedidoService();
+    pedidoService: PedidoService;
 
-    constructor(){}
+    constructor(pedidoService: PedidoService){
+        this.pedidoService = pedidoService;
+    }
 
     ngOnInit(){
         this.pedido = new Pedido();
@@ -31,7 +33,7 @@ export class PedidoComponent{
         console.log(this.pedido.customer);
         console.log(this.pedido.ownId);
         console.log(this.pedido);
-        this.pedidoService.setPedido(this.pedido);
+        this.pedidoService.savePedido(this.pedido);
         console.log(this.pedidoService);
         this.pedido = new Pedido();
     }

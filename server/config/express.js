@@ -5,7 +5,7 @@ var express = require('express')
     ,path =  require('path');
 
 app.set('clientPath', path.join(__dirname, '../..', 'client'));
-console.log(app.get('clientPath'));
+console.log('Client - path: ' + app.get('clientPath'));
 app.use(express.static(app.get('clientPath')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());

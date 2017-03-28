@@ -1,13 +1,20 @@
 var Datastore = require('nedb')
-    ,dbName = 'moip-pagamentos.db'
     ,db;
 
 if(!db) {
-    db = new Datastore({
-        filename: dbName, 
+    db = {
+        pagamentos:{},
+        pedidos:{}
+    }
+    db.pagamentos = new Datastore({
+        filename: 'moip-pagamentos', 
         autoload: true 
     });
-    console.log('Banco ' + dbName + ' pronto para uso')
+    db.pedidos = new Datastore({
+        filename: 'moip-pedidos',
+        autoload: true
+    });
+    console.log('Bancos ' + db.pagamentos.filename + ' e ' + db.pedidos.filename + ' prontos para uso');
 }
 
 module.exports = db;

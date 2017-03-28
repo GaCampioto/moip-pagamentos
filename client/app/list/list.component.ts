@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import { PhotoComponent } from '../photo/photo.component';
-import { PhotoService } from '../photo/photo.service';
 import { PedidoService } from '../pedido/pedido.service';
+import { PedidoComponent } from '../pedido/pedido.component';
+import { Pedido } from '../pedido/pedido.model';
 
 @Component({
     moduleId : module.id,
@@ -10,20 +10,23 @@ import { PedidoService } from '../pedido/pedido.service';
     templateUrl:'./list.component.html'
 })
 export class ListComponent{
-    photos : PhotoComponent [] = [];
+    pedidos : Pedido[] = [];
 
 
-    constructor(photoService: PhotoService){
-        /*photoService
+    constructor(pedidoService: PedidoService){
+        pedidoService
             .getAll()
             .subscribe(
-                photos => this.photos = photos,
+                pedidos => this.pedidos = pedidos,
                 error => console.log(error)
             );
-        console.log(this.pedidoService);
-        let stringBase64 = 'JBKNU57SBOLJIW4AOMN6VTF5IT1RMSME:1A8BOVJBVQKKG8ARDKI4UFAGEUZQASBS8WLKISZY';
-        console.log(btoa(stringBase64));
-        console.log(atob(btoa(stringBase64)));
-        console.log(atob('MDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDE6QUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQg=='));
+        //reduce((total, n) => total + n.volume, 0.0);
+    }
+
+    defineValorTotal(pedido: Pedido): number{
+        return pedido.items.reduce((newProduct, products) => {
+            newProduct.price += products.price;
+            return newProduct;
+        }).price;
     }
 }

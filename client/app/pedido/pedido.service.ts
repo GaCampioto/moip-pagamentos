@@ -1,19 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Pedido } from '../pedido/pedido.model';
+import { Observable } from 'rxjs';
+import { Http, Headers, Response } from '@angular/http';
 
 @Injectable()
 export class PedidoService {
-  sharedPedido:Pedido;
+      http: Http;
+      headers: Headers;
+      url: string;
+      
+      constructor(http: Http){
+            this.http = http;
+            this.headers = new Headers();
+            this.headers.append('Content-type', 'Application/JSON');
+            this.headers.append('Content-type', 'Application/JSON');
+            this.url = '/v1/pedidos';
+      }
 
-  constructor(){
-      this.sharedPedido = new Pedido();
-  }
+      savePedido(pedido: Pedido) : Observable<Response>{
+            return this.http
+                        .post(this.url, JSON.stringify(pedido), {headers : this.headers})
+      }
 
-  setPedido (pedido: Pedido) {
-        this.sharedPedido = pedido;
-  }
-
-  getPedido () {
-        return this.sharedPedido;
-  }
+      getAll() : Observable<Pedido[]>{
+            return this.http
+                        .get(this.url)
+                        .map(res => res.json());
+      }
 }
