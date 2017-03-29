@@ -1,0 +1,26 @@
+<div class="container">
+    <h1 class="text-center">Pagamento</h1>
+    <!-- [formGroup]="" necessário para que seja feito o binding do form para o component.ts-->
+    <form class="row" (submit)="criarPagamento($event)">
+        <div class="col-md-12">
+            <h2>Informações do pagamento</h2>
+            <p *ngIf="message.length" class="alert alert-info">{{message}}</p>    
+            <label>Valor total do pedido:</label>
+            <p>{{pagamento.amount}}</p>
+            <label>Número do cartão de crédito:</label>
+            <input  name="cartaoDeCredito" [(ngModel)]="pagamento.creditCard.number" 
+                    autocomplete="off">
+            <label>CCV:</label>
+            <input  name="ccv" [(ngModel)]="pagamento.creditCard.ccv" 
+                    autocomplete="off">
+            <label>Parcelamento:</label>
+            <input  name="parcelamento" [(ngModel)]="pagamento.installmentCount" 
+                    autocomplete="off">                    
+            <button type="submit" class="btn btn-primary">
+                Finalizar pagamento
+            </button>
+            <a [routerLink]="['']" class="btn btn-primary">Voltar</a>
+            <hr>
+        </div>
+    </form>
+</div>
