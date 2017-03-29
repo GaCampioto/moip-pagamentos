@@ -7,8 +7,8 @@ var register_component_1 = require("./register/register.component");
 var pedido_component_1 = require("./pedido/pedido.component");
 //Configuração das rotas
 var appRoutes = [
-    { path: '', component: pedido_component_1.PedidoComponent },
-    { path: 'lista', component: list_component_1.ListComponent },
+    { path: '', component: list_component_1.ListComponent },
+    { path: 'novoPedido', component: pedido_component_1.PedidoComponent },
     { path: 'cadastro', component: register_component_1.RegisterComponent },
     { path: '**', component: list_component_1.ListComponent }
 ];

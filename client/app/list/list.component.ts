@@ -12,7 +12,6 @@ import { Pedido } from '../pedido/pedido.model';
 export class ListComponent{
     pedidos : Pedido[] = [];
 
-
     constructor(pedidoService: PedidoService){
         pedidoService
             .getAll()
@@ -24,9 +23,7 @@ export class ListComponent{
     }
 
     defineValorTotal(pedido: Pedido): number{
-        return pedido.items.reduce((newProduct, products) => {
-            newProduct.price += products.price;
-            return newProduct;
-        }).price;
+        let valorPedidos : number[] = pedido.items.map(item => item.price * item.quantity);
+        return valorPedidos.reduce((valorTotal, valorPedido) => valorTotal + valorPedido);
     }
 }

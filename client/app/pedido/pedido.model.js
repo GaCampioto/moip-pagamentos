@@ -7,9 +7,12 @@ var Pedido = (function () {
         this.items = [];
         this.customer = new customer_model_1.Customer();
         this.ownId = '';
+        this._id = '';
+        this.id = '';
+        this.status = '';
         this.items.push(new product_model_1.Product('Controle xbox one elite', 0, 'Controle preto xbox one elite', 600.00));
         this.items.push(new product_model_1.Product('Controle ps4', 0, 'Controle preto ps4', 300.00));
-        this.items.push(new product_model_1.Product('Teclado gamer pc', 0, 'Teclado gamer pc', 500.00));
+        this.items.push(new product_model_1.Product('Teclado gamer pc', 0, 'Teclado gamer pc', 100.00));
     }
     return Pedido;
 }());

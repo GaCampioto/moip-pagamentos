@@ -9,5 +9,5 @@ export class Product{
         this.quantity = quantity;
         this.detail = detail;
         this.price = price;
-    } 
+    }
 }

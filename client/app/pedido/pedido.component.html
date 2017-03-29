@@ -3,7 +3,8 @@
     <!-- [formGroup]="" necessário para que seja feito o binding do form para o component.ts-->
     <form class="row" (submit)="criarPedido($event)">
         <div class="col-md-12">
-            <h2>Informações do pedido</h2>    
+            <h2>Informações do pedido</h2>
+            <p *ngIf="message.length" class="alert alert-info">{{message}}</p>    
             <label>Identificador do pedido:</label>
             <input  name="ownId" [(ngModel)]="pedido.ownId" 
                     autocomplete="off">

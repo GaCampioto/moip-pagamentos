@@ -1,6 +1,7 @@
 var db = require('../../config/database');
+var app = require('../../config/express');
 
-var api = {}
+api = {}
 
 //MÉTODOS DO CRUD DE PAGAMENTO
 api.adicionaPagamento = function(req, res) {
@@ -9,7 +10,7 @@ api.adicionaPagamento = function(req, res) {
     db.pagamentos.insert(pagamento, function(err, newDoc) {
         if(err) return console.log(err);
         console.log('Adicionado com sucesso: ' + newDoc._id);
-        res.json(newDoc._id);
+        res.status(201).json(newDoc._id);
     });  
 };
 
@@ -46,16 +47,25 @@ api.removePagamento = function(req, res) {
         res.status(500).end();
     });
 };
-
 //MÉTODOS DO CRUD DE PEDIDO
-api.adicionaPedido = function(req, res) {
+api.prototype.adicionaPedido = function(req, res) {
+    console.log('No Back-end: ' + JSON.stringify(req.body));
     var pedido = req.body;
     delete pedido._id;
-    db.pedidos.insert(pedido, function(err, newDoc) {
-        if(err) return console.log(err);
-        console.log('Adicionado com sucesso: ' + newDoc._id);
-        res.json(newDoc);
-    });  
+    moipClient = new app.service.moipClient();
+    moipClient.criarPedido(pedido, (error, request, response) => {
+        if(error){
+            console.log(error);
+            return res.status(500);
+        } 
+        console.log(response);
+        db.pedidos.insert(pedido, function(err, newDoc) {
+            if(err) return console.log(err);
+            console.log('Adicionado com sucesso: ' + newDoc._id);
+            console.log('Elemento: ' + JSON.stringify(newDoc));
+            res.status(201).json(newDoc);
+        });  
+    });
 };
 
 api.buscaPedido = function(req, res) {

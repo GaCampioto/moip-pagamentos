@@ -26,12 +26,15 @@
                     <td>Nome do cliente</td>
                     <td>Quantidade de itens</td>
                     <td>Valor total</td>
+                    <td>Status</td>
+                    <td>#</td>
                 </tr>
                 <tr *ngFor="let pedido of pedidos">
                         <td>{{pedido.ownId}}</td>
                         <td>{{pedido.customer.fullname}}</td>
-                        <td>R$ {{defineValorTotal(pedido)}}</td>
                         <td>{{pedido.items.length}}</td>
+                        <td>R$ {{defineValorTotal(pedido)}}</td>
+                        <td>{{pedido.status}}</td>
                         <td>
                             <a [routerLink]="['novoPagamento']" class="btn btn-primary">
                                 Ir para o pagamento

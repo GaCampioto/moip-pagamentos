@@ -10,24 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var photo_service_1 = require("../photo/photo.service");
+var pedido_service_1 = require("../pedido/pedido.service");
 var ListComponent = (function () {
-    function ListComponent(photoService) {
-        this.photos = [];
-        /*photoService
+    function ListComponent(pedidoService) {
+        var _this = this;
+        this.pedidos = [];
+        pedidoService
             .getAll()
-            .subscribe(
-                photos => this.photos = photos,
-                error => console.log(error)
-            );
-        console.log(this.pedidoService);
-        let stringBase64 = 'JBKNU57SBOLJIW4AOMN6VTF5IT1RMSME:1A8BOVJBVQKKG8ARDKI4UFAGEUZQASBS8WLKISZY';
-        console.log(btoa(stringBase64));
-        console.log(atob(btoa(stringBase64)));
-        console.log(atob('MDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDE6QUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQg=='));
+            .subscribe(function (pedidos) { return _this.pedidos = pedidos; }, function (error) { return console.log(error); });
+        //reduce((total, n) => total + n.volume, 0.0);
     }
-} 
-    }
+    ListComponent.prototype.defineValorTotal = function (pedido) {
+        var valorPedidos = pedido.items.map(function (item) { return item.price * item.quantity; });
+        return valorPedidos.reduce(function (valorTotal, valorPedido) { return valorTotal + valorPedido; });
+    };
     return ListComponent;
 }());
 ListComponent = __decorate([
@@ -36,20 +32,7 @@ ListComponent = __decorate([
         selector: 'list',
         templateUrl: './list.component.html'
     }),
-    __metadata("design:paramtypes", [photo_service_1.PhotoService])
+    __metadata("design:paramtypes", [pedido_service_1.PedidoService])
 ], ListComponent);
 exports.ListComponent = ListComponent;
-/*photoService
-    .getAll()
-    .subscribe(
-        photos => this.photos = photos,
-        error => console.log(error)
-    );
-console.log(this.pedidoService);
-let stringBase64 = 'JBKNU57SBOLJIW4AOMN6VTF5IT1RMSME:1A8BOVJBVQKKG8ARDKI4UFAGEUZQASBS8WLKISZY';
-console.log(btoa(stringBase64));
-console.log(atob(btoa(stringBase64)));
-console.log(atob('MDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDE6QUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQg=='));
-}
-} 
 //# sourceMappingURL=list.component.js.map

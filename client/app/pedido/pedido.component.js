@@ -14,10 +14,12 @@ var customer_model_1 = require("../customer/customer.model");
 var pedido_model_1 = require("../pedido/pedido.model");
 var pedido_service_1 = require("../pedido/pedido.service");
 var PedidoComponent = (function () {
-    function PedidoComponent() {
+    function PedidoComponent(pedidoService) {
         this.items = [];
         this.ownId = '';
-        this.pedidoService = new pedido_service_1.PedidoService();
+        this.message = '';
+        this.pedidoService = pedidoService;
+        this.message = '';
     }
     PedidoComponent.prototype.ngOnInit = function () {
         this.pedido = new pedido_model_1.Pedido();
@@ -32,8 +34,9 @@ var PedidoComponent = (function () {
         console.log(this.pedido.customer);
         console.log(this.pedido.ownId);
         console.log(this.pedido);
-        this.pedidoService.setPedido(this.pedido);
-        console.log(this.pedidoService);
+        this.pedido.items = this.pedido.items.filter(function (product) { return product.quantity > 0; });
+        this.pedidoService.savePedido(this.pedido);
+        this.message = 'Pedido criado com sucesso!';
         this.pedido = new pedido_model_1.Pedido();
     };
     return PedidoComponent;
@@ -44,7 +47,7 @@ PedidoComponent = __decorate([
         selector: 'pedido',
         templateUrl: './pedido.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [pedido_service_1.PedidoService])
 ], PedidoComponent);
 exports.PedidoComponent = PedidoComponent;
 //# sourceMappingURL=pedido.component.js.map
