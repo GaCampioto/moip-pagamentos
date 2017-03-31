@@ -36,7 +36,7 @@
                         <td>R$ {{defineValorTotal(pedido)}}</td>
                         <td>{{pedido.status}}</td>
                         <td>
-                            <a [routerLink]="['novoPagamento']" class="btn btn-primary">
+                            <a [routerLink]="['novoPagamento', pedido._id]" class="btn btn-primary">
                                 Ir para o pagamento
                             </a>
                         </td>

@@ -36,8 +36,14 @@ export class PedidoComponent{
         console.log(this.pedido.ownId);
         console.log(this.pedido);
         this.pedido.items = this.pedido.items.filter(product => product.quantity > 0);
-        this.pedidoService.savePedido(this.pedido)
-        this.message = 'Pedido criado com sucesso!';
-        this.pedido = new Pedido();
+        this.pedidoService
+            .savePedido(this.pedido)
+            .subscribe(() => {
+                this.pedido = new Pedido();
+                this.message = 'Pedido criado com sucesso!';
+            }, error => {
+                console.log(error);
+                this.message = 'Erro ao criar pedido!';
+            });
     }
 }

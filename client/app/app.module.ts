@@ -2,8 +2,11 @@
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { ListComponent } from './list/list.component';
+import { ListPagamentosComponent } from './list/listPagamentos.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { PedidoService } from './pedido/pedido.service';
+import { PagamentoComponent } from './pagamento/pagamento.component';
+import { PagamentoService } from './pagamento/pagamento.service';
 
 //Import de modules
 import { NgModule } from '@angular/core';
@@ -18,8 +21,8 @@ import 'rxjs/add/operator/map';
 
 @NgModule({
     imports : [BrowserModule, PhotoModule, HttpModule, PanelModule, routing, FormsModule, ReactiveFormsModule],
-    declarations : [AppComponent, RegisterComponent, ListComponent, PedidoComponent],
-    providers: [ PedidoService ],
+    declarations : [AppComponent, RegisterComponent, ListComponent, ListPagamentosComponent, PedidoComponent, PagamentoComponent],
+    providers: [ PedidoService, PagamentoService ],
     bootstrap : [ AppComponent ]
 })
 export class AppModule{}

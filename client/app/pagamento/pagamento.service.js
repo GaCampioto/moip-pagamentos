@@ -11,35 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var PedidoService = (function () {
-    function PedidoService(http) {
+var PagamentoService = (function () {
+    function PagamentoService(http) {
         this.http = http;
         this.headers = new http_1.Headers();
         this.headers.append('content-type', 'application/json');
-        this.url = '/v1/pedidos';
+        this.prefixUrl = '/v1/pedidos';
+        this.suffixUrl = '/pagamentos';
     }
-    PedidoService.prototype.savePedido = function (pedido) {
-        console.log('savePedido: ' + pedido);
+    PagamentoService.prototype.savePagamento = function (pagamento, pedidoId) {
+        console.log('savePagamento: ' + JSON.stringify(pagamento));
         return this.http
-            .post(this.url, JSON.stringify(pedido), { headers: this.headers });
-    };
-    PedidoService.prototype.get = function (id) {
-        console.log('id no service: ' + id);
-        console.log(this.url + '/' + id);
-        return this.http
-            .get(this.url + '/' + id)
+            .post(this.prefixUrl + '/' + pedidoId + this.suffixUrl, JSON.stringify(pagamento), { headers: this.headers })
             .map(function (res) { return res.json(); });
     };
-    PedidoService.prototype.getAll = function () {
+    PagamentoService.prototype.getAll = function () {
         return this.http
-            .get(this.url)
+            .get(this.suffixUrl)
             .map(function (res) { return res.json(); });
     };
-    return PedidoService;
+    return PagamentoService;
 }());
-PedidoService = __decorate([
+PagamentoService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], PedidoService);
-exports.PedidoService = PedidoService;
-//# sourceMappingURL=pedido.service.js.map
+], PagamentoService);
+exports.PagamentoService = PagamentoService;
+//# sourceMappingURL=pagamento.service.js.map

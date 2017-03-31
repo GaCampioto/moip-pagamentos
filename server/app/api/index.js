@@ -40,6 +40,7 @@ api.removePagamento = function(req, res) {
 
 //MÉTODOS DO CRUD DE PEDIDO
 api.buscaPedido = function(req, res) {
+    console.log(req.params.pedidoId);
    db.pedidos.findOne({_id: req.params.pedidoId }, function(err, doc) {
         if (err) return console.log(err);
         res.json(doc);

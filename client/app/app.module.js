@@ -10,8 +10,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var app_component_1 = require("./app.component");
 var register_component_1 = require("./register/register.component");
 var list_component_1 = require("./list/list.component");
+var listPagamentos_component_1 = require("./list/listPagamentos.component");
 var pedido_component_1 = require("./pedido/pedido.component");
 var pedido_service_1 = require("./pedido/pedido.service");
+var pagamento_component_1 = require("./pagamento/pagamento.component");
+var pagamento_service_1 = require("./pagamento/pagamento.service");
 //Import de modules
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
@@ -30,8 +33,8 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, photo_module_1.PhotoModule, http_1.HttpModule, panel_module_1.PanelModule, app_routes_1.routing, forms_1.FormsModule, forms_1.ReactiveFormsModule],
-        declarations: [app_component_1.AppComponent, register_component_1.RegisterComponent, list_component_1.ListComponent, pedido_component_1.PedidoComponent],
-        providers: [pedido_service_1.PedidoService],
+        declarations: [app_component_1.AppComponent, register_component_1.RegisterComponent, list_component_1.ListComponent, listPagamentos_component_1.ListPagamentosComponent, pedido_component_1.PedidoComponent, pagamento_component_1.PagamentoComponent],
+        providers: [pedido_service_1.PedidoService, pagamento_service_1.PagamentoService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

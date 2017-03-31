@@ -8,14 +8,17 @@
             <label>Valor total do pedido:</label>
             <p>{{pagamento.amount}}</p>
             <label>Número do cartão de crédito:</label>
-            <input  name="cartaoDeCredito" [(ngModel)]="pagamento.creditCard.number" 
+            <input  name="cartaoDeCredito" [(ngModel)]="pagamento.fundingInstrument.creditCard.number" 
                     autocomplete="off">
-            <label>CCV:</label>
-            <input  name="ccv" [(ngModel)]="pagamento.creditCard.ccv" 
+            <label>CVC:</label>
+            <input  name="ccv" [(ngModel)]="pagamento.fundingInstrument.creditCard.cvc" 
                     autocomplete="off">
             <label>Parcelamento:</label>
             <input  name="parcelamento" [(ngModel)]="pagamento.installmentCount" 
-                    autocomplete="off">                    
+                    autocomplete="off">
+            <label>Cupom de desconto:</label>
+            <input  name="cupom" [(ngModel)]="cupom" 
+                    autocomplete="off">
             <button type="submit" class="btn btn-primary">
                 Finalizar pagamento
             </button>

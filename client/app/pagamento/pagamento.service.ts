@@ -12,19 +12,22 @@ export class PagamentoService {
       
       constructor(http: Http){
             this.http = http;
+            this.headers = new Headers();
+            this.headers.append('content-type', 'application/json');
             this.prefixUrl = '/v1/pedidos';
             this.suffixUrl = '/pagamentos';
       }
       
-      savePagamento(pagamento: Pagamento, pedidoId: string): Observable<Response>{
+      savePagamento(pagamento: Pagamento, pedidoId: string): Observable<Pagamento>{
             console.log('savePagamento: ' + JSON.stringify(pagamento));
             return this.http
-                        .post(this.prefixUrl + pedidoId + this.suffixUrl, JSON.stringify(pagamento), {headers : this.headers});
+                        .post(this.prefixUrl + '/' + pedidoId + this.suffixUrl, JSON.stringify(pagamento), {headers : this.headers})
+                        .map(res => res.json());
       }
 
       getAll() : Observable<Pagamento[]>{
             return this.http
-                        .get(this.prefixUrl)
+                        .get(this.suffixUrl)
                         .map(res => res.json());
       }
 }

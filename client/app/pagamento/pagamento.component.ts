@@ -5,37 +5,65 @@ import { Pedido } from '../pedido/pedido.model';
 import { PedidoService } from '../pedido/pedido.service';
 import { Pagamento } from '../pagamento/pagamento.model';
 import { PagamentoService } from '../pagamento/pagamento.service';
+import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     moduleId : module.id,
     selector:'pagamento',
     templateUrl:'./pagamento.component.html'
 })
-export class PedidoComponent{
+export class PagamentoComponent{
     pedido: Pedido;
     pedidoService: PedidoService;
     pagamento: Pagamento;
     pagamentoService: PagamentoService;
     message: string = '';
+    activatedRoute: ActivatedRoute;
+    router: Router;
+    cupom: string;
 
-    constructor(pedidoService: PedidoService, pagamentoService: PagamentoService){
+    constructor(pedidoService: PedidoService, pagamentoService: PagamentoService, activatedRoute: ActivatedRoute, router: Router){
+        this.activatedRoute = activatedRoute;
+        this.router = router;
         this.pedidoService = pedidoService;
         this.pagamentoService = pagamentoService;
         this.message = '';
+        let id: string;
+        this.activatedRoute.params.subscribe(params => {
+            console.log('params: ' + JSON.stringify(params));
+            id = params["id"];
+        });
+        console.log('id recebido: ' + id);
+        if(id){
+            this.pedidoService
+                .get(id)
+                .subscribe( pedido => {
+                    console.log(this.pedido);
+                    console.log(pedido);
+                    this.pedido = pedido
+                });
+        } else {
+            router.navigate(['']);
+        }
     }
-
+    
     ngOnInit(){
-        //BUSCAR PEDIDO NA BASE DE DADOS UTILIZANDO ID COMO PARÂMETRO
+        this.pagamento = new Pagamento();
+        console.log(this.pagamento);
     }
 
-    criarPagamento(){
+    criarPagamento(): void{
         event.preventDefault();
-        console.log(this.pedido.items);
-        console.log(this.pedido.customer);
-        console.log(this.pedido.ownId);
-        console.log(this.pedido);
-        this.pagamentoService.savePagamento(this.pagamento, this.pedido.id);
-        this.message = 'Pedido finalizado com sucesso!';
-        this.pedido = new Pedido();
+        this.pagamento.calcularValorTotal().validarCupom(this.cupom);
+        this.pagamentoService
+            .savePagamento(this.pagamento, this.pedido.id)
+            .subscribe((pagamento) => {
+                this.pagamento = pagamento;
+                this.message = 'Pedido finalizado com sucesso!';
+            }, error => {
+                console.log(error);
+                this.message = 'Problema ao finalizar o pedido';
+            });
+        this.pagamento = new Pagamento();
     }
 }

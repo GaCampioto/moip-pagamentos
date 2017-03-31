@@ -1,0 +1,21 @@
+<div class="jumbotron">
+    <h1 class="text-center">Pagamentos</h1>
+</div>
+<div class="container">
+    <div class="row col-md-12">
+        <table class="table table-striped">
+                <tr>
+                    <td>Identificador do Pagamento</td>
+                    <td>Parcelamento</td>
+                    <td>Forma de pagamento</td>
+                    <td>Valor total</td>
+                </tr>
+                <tr *ngFor="let pagamento of pagamentos">
+                        <td>{{pagamento.id}}</td>
+                        <td>{{pagamento.installmentCount}}</td>
+                        <td>{{pagamento.fundingInstrument.method}}</td>
+                        <td>R$ {{pagamento.fundingInstrument.amount.total}}</td>
+                </tr>
+            </table>
+    </div>
+</div>

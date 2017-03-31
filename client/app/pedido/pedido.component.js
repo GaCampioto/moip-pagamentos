@@ -29,15 +29,22 @@ var PedidoComponent = (function () {
         console.log(this.pedido.ownId);
     };
     PedidoComponent.prototype.criarPedido = function () {
+        var _this = this;
         event.preventDefault();
         console.log(this.pedido.items);
         console.log(this.pedido.customer);
         console.log(this.pedido.ownId);
         console.log(this.pedido);
         this.pedido.items = this.pedido.items.filter(function (product) { return product.quantity > 0; });
-        this.pedidoService.savePedido(this.pedido);
-        this.message = 'Pedido criado com sucesso!';
-        this.pedido = new pedido_model_1.Pedido();
+        this.pedidoService
+            .savePedido(this.pedido)
+            .subscribe(function () {
+            _this.pedido = new pedido_model_1.Pedido();
+            _this.message = 'Pedido criado com sucesso!';
+        }, function (error) {
+            console.log(error);
+            _this.message = 'Erro ao criar pedido!';
+        });
     };
     return PedidoComponent;
 }());

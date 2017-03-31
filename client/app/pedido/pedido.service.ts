@@ -7,54 +7,32 @@ import { Http, Headers, Response } from '@angular/http';
 export class PedidoService {
       http: Http;
       headers: Headers;
-      urlBackEnd: string;
-      urlMoip: string;
+      url: string;
       
       constructor(http: Http){
             this.http = http;
             this.headers = new Headers();
-            this.headers.append('Content-type', 'Application/JSON');
-            this.headers.append('Authorization', 'Basic MDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDE6QUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQkFCQUJBQg==');
-            this.urlBackEnd = '/v1/pedidos';
-            this.urlMoip = 'https://sandbox.moip.com.br/v2/orders';
+            this.headers.append('content-type', 'application/json');
+            this.url = '/v1/pedidos';
       }
 
-      savePedido(pedido: Pedido) : void{
-            let pedidoRequest = {
-                        items: pedido.items,
-                        customer: pedido.customer,
-                        ownId: pedido.ownId
-            }
-            console.log('Service -> ' + JSON.stringify(pedidoRequest));
-            let response = new Pedido();
-            this.http
-                  .post(this.urlMoip, JSON.stringify(pedidoRequest), {headers : this.headers})
-                  .map(res => res.json())
-                  .subscribe(
-                        res => {
-                              response = res
-                              console.log(response);
-                              this.savePedidoBackEnd(response)
-                                    .subscribe(
-                                          res => {
-                                                console.log(res.json());
-                                          },
-                                          error => console.log(error)
-                                    );
-                        },
-                        error => console.log(error)
-                   );
-      }
-
-      savePedidoBackEnd(pedido: Pedido): Observable<Response>{
-            console.log('savePedidoBackEnd: ' + JSON.stringify(pedido));
+      savePedido(pedido: Pedido): Observable<Response>{
+            console.log('savePedido: ' + pedido);
             return this.http
-                        .post(this.urlBackEnd, JSON.stringify(pedido), {headers : this.headers});
+                        .post(this.url, JSON.stringify(pedido), {headers : this.headers});
+      }
+
+      get(id: string) : Observable<Pedido>{
+            console.log('id no service: ' + id);
+            console.log(this.url + '/' + id);
+            return this.http
+                        .get(this.url + '/' + id)
+                        .map(res => res.json());
       }
 
       getAll() : Observable<Pedido[]>{
             return this.http
-                        .get(this.urlBackEnd)
+                        .get(this.url)
                         .map(res => res.json());
       }
 }

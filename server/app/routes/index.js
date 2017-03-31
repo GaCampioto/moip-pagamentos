@@ -5,6 +5,8 @@ var api = require('../api'),
 module.exports = function(app) {
     //Operações pedidos
     app.post('/v1/pedidos', (req, res) => {
+        console.log(req);
+        console.log(req.body);
         var pedido = req.body;
         let pedidoRequest = {
                         items: pedido.items,
@@ -35,6 +37,8 @@ module.exports = function(app) {
 
     //Operações pagamento
     app.post('/v1/pedidos/:pedidoId/pagamentos', (req, res) => {
+        console.log('pagamento server');
+        console.log(req);
         var pedidoId = req.params.pedidoId;
         var pedido = db.pedidos.findOne({id: req.params.pedidoId }, function(err, doc) {
             if (err){
